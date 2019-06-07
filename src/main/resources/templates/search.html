@@ -36,8 +36,35 @@
 
     <hr />
 
-    <!-- TODO #2 - Loop over jobs map to display all job fields -->
+    <!-- DONE #2 - Loop over jobs map to display all job fields -->
 
+    <!-- Only display this part if we get there with a post request! -->
+    <div th:if="${method}=='post'">
+
+        <!-- Created a fragment here! It's working!! -->
+        <div  th:fragment="list-jobs" >
+
+            <!-- Number of records found -->
+            <h3 th:text="(${jobs.size()}==0 ? 'No' : ${jobs.size()}) + ' Result' + (${jobs.size()!=1} ? 's': '') "></h3>
+
+            <!-- Results summary -->
+            <div th:if="${searchTerm}!='' and ${searchType} and ${jobs.size()}!=0" class="alert-success" role="alert">
+                <span>Showing results for keyword</span>
+                <b><span th:text="|'${searchTerm}'|"> </span></b>
+                <span> in </span>
+                <b><span th:text="|'${#strings.capitalizeWords(searchType)}'|"> </span></b>
+            </div>
+
+            <!-- List of jobs found -->
+            <table th:each="job, idx : ${jobs}" class="job-listing">
+                <tr th:each="field : ${job}"
+                        th:class="${idx.odd} ? 'odd'">
+                    <td> <b th:text="${#strings.capitalizeWords(field.key)}">  </b> </td>
+                    <td th:text="${field.value}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 
 </body>

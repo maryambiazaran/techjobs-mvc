@@ -125,9 +125,10 @@ public class JobData {
     private static void loadData() {
 
         // Only load data once
+        /**
         if (isDataLoaded) {
             return;
-        }
+        } */
 
         try {
 
