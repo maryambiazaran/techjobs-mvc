@@ -52,15 +52,18 @@
                 <span>Showing results for keyword</span>
                 <b><span th:text="|'${searchTerm}'|"> </span></b>
                 <span> in </span>
-                <b><span th:text="|'${#strings.capitalizeWords(searchType)}'|"> </span></b>
+                <b><span th:text="|'${#strings.capitalizeWords(columns.get(searchType))}'|"> </span></b>
             </div>
 
             <!-- List of jobs found -->
             <table th:each="job, idx : ${jobs}" class="job-listing">
                 <tr th:each="field : ${job}"
                         th:class="${idx.odd} ? 'odd'">
-                    <td> <b th:text="${#strings.capitalizeWords(field.key)}">  </b> </td>
-                    <td th:text="${field.value}"></td>
+                    <td>
+                        <b th:text="${#strings.capitalizeWords(field.key)}">  </b>
+                    </td>
+                    <td th:unless="${field.key}=='name'"><a th:href="@{/list/jobs(column=${field.key},value=${field.value})}" th:text="${field.value}"></a></td>
+                    <td th:if="${field.key}=='name'" th:text="${field.value}"></td>
                 </tr>
             </table>
         </div>

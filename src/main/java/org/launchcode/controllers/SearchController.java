@@ -29,6 +29,7 @@ public class SearchController {
             Model model,
             @RequestParam String searchType,
             @RequestParam String searchTerm) {
+        searchTerm = searchTerm.trim();
 
         ArrayList searchResults= new ArrayList();
         if (searchType.toLowerCase().equals("all")) {
